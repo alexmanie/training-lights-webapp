@@ -2,8 +2,6 @@ const form = document.querySelector('#configuration-form');
 const summary = document.querySelector('#configuration-summary');
 
 const labels = {
-  colors: 'colors',
-  numbers: 'numbers',
   both: 'colors and numbers',
 };
 
@@ -16,7 +14,7 @@ function getConfiguration() {
 }
 
 function renderSummary({ seriesType, timerSeconds }, saved = false) {
-  const label = labels[seriesType] || labels.colors;
+  const label = labels[seriesType] || seriesType || 'colors';
   const secondsLabel = timerSeconds === 1 ? 'second' : 'seconds';
   const prefix = saved ? 'Configuration saved' : 'Ready to start';
 

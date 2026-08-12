@@ -22,8 +22,9 @@ function resolveStaticPath(requestUrl) {
 
   const normalizedPath = path.normalize(decodedPath).replace(/^([/\\])+/, '');
   const filePath = path.join(publicDir, normalizedPath);
+  const relativePath = path.relative(publicDir, filePath);
 
-  if (!filePath.startsWith(publicDir + path.sep)) {
+  if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
     return null;
   }
 
