@@ -33,3 +33,5 @@ form.addEventListener('submit', (event) => {
   localStorage.setItem('trainingLightsConfiguration', JSON.stringify(configuration));
   renderSummary(configuration, true);
 });
+
+renderSummary(getConfiguration());

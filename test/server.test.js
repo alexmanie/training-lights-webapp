@@ -9,39 +9,50 @@ async function fetchFromTestServer(pathname, options) {
   const { port } = server.address();
 
   try {
-    return await fetch(`http://127.0.0.1:${port}${pathname}`, options);
+    const response = await fetch(`http://127.0.0.1:${port}${pathname}`, options);
+    return {
+      body: await response.text(),
+      headers: response.headers,
+      status: response.status,
+    };
   } finally {
-    server.close();
+    await new Promise((resolve, reject) => {
+      server.close((error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve();
+      });
+    });
   }
 }
 
 test('serves the configuration page at the root route', async () => {
   const response = await fetchFromTestServer('/');
-  const body = await response.text();
 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
-  assert.match(body, /Configure your training series/);
-  assert.match(body, /Colors and numbers/);
-  assert.match(body, /Time between elements/);
+  assert.match(response.body, /Configure your training series/);
+  assert.match(response.body, /Colors and numbers/);
+  assert.match(response.body, /Time between elements/);
 });
 
 test('serves frontend assets', async () => {
   const response = await fetchFromTestServer('/app.js');
-  const body = await response.text();
 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
-  assert.match(body, /trainingLightsConfiguration/);
+  assert.match(response.body, /trainingLightsConfiguration/);
 });
 
 test('supports HEAD requests for static files', async () => {
   const response = await fetchFromTestServer('/', { method: 'HEAD' });
-  const body = await response.text();
 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
-  assert.equal(body, '');
+  assert.equal(response.body, '');
 });
 
 test('rejects unsupported methods', async () => {
