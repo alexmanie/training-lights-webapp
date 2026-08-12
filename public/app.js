@@ -15,10 +15,10 @@ function getConfiguration() {
   };
 }
 
-function renderSummary({ seriesType, timerSeconds }, readyToStart = false) {
+function renderSummary({ seriesType, timerSeconds }, saved = false) {
   const label = labels[seriesType] || labels.colors;
   const secondsLabel = timerSeconds === 1 ? 'second' : 'seconds';
-  const prefix = readyToStart ? 'Configuration saved' : 'Ready to start';
+  const prefix = saved ? 'Configuration saved' : 'Ready to start';
 
   summary.value = `${prefix} with ${label} every ${timerSeconds} ${secondsLabel}.`;
 }

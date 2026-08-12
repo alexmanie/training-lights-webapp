@@ -35,6 +35,15 @@ test('serves frontend assets', async () => {
   assert.match(body, /trainingLightsConfiguration/);
 });
 
+test('supports HEAD requests for static files', async () => {
+  const response = await fetchFromTestServer('/', { method: 'HEAD' });
+  const body = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
+  assert.equal(body, '');
+});
+
 test('rejects unsupported methods', async () => {
   const response = await fetchFromTestServer('/', { method: 'POST' });
 

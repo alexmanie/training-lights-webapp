@@ -51,17 +51,31 @@ function createServer() {
         throw Object.assign(new Error('Not a file'), { code: 'ENOENT' });
       }
 
-      response.writeHead(200, {
-        'Content-Length': stats.size,
-        'Content-Type': contentTypes[path.extname(filePath)] || 'application/octet-stream',
-      });
-
       if (request.method === 'HEAD') {
+        response.writeHead(200, {
+          'Content-Length': stats.size,
+          'Content-Type': contentTypes[path.extname(filePath)] || 'application/octet-stream',
+        });
         response.end();
         return;
       }
 
-      createReadStream(filePath).pipe(response);
+      const stream = createReadStream(filePath);
+      stream.on('error', () => {
+        if (!response.headersSent) {
+          response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+          response.end('Internal Server Error');
+          return;
+        }
+
+        response.destroy();
+      });
+
+      response.writeHead(200, {
+        'Content-Length': stats.size,
+        'Content-Type': contentTypes[path.extname(filePath)] || 'application/octet-stream',
+      });
+      stream.pipe(response);
     } catch (error) {
       response.writeHead(error.code === 'ENOENT' ? 404 : 500, {
         'Content-Type': 'text/plain; charset=utf-8',
