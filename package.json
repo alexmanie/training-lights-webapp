@@ -1,0 +1,20 @@
+{
+  "name": "training-lights-webapp",
+  "version": "1.0.0",
+  "description": "Simple webapp for training velocity",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexmanie/training-lights-webapp.git"
+  },
+  "keywords": [
+    "training",
+    "webapp"
+  ],
+  "author": "",
+  "license": "ISC"
+}
