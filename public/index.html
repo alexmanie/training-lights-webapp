@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Training Lights</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="configuration-shell" aria-labelledby="page-title">
+      <section class="configuration-card">
+        <p class="eyebrow">Training Lights</p>
+        <h1 id="page-title">Configure your training series</h1>
+        <p class="intro">
+          Choose whether the fullscreen session should show colors, numbers, or both,
+          then set how much time passes between each item.
+        </p>
+
+        <form id="configuration-form" class="configuration-form">
+          <fieldset>
+            <legend>What do you want to train with?</legend>
+            <label>
+              <input type="radio" name="seriesType" value="colors" checked>
+              <span>Colors</span>
+            </label>
+            <label>
+              <input type="radio" name="seriesType" value="numbers">
+              <span>Numbers</span>
+            </label>
+            <label>
+              <input type="radio" name="seriesType" value="both">
+              <span>Colors and numbers</span>
+            </label>
+          </fieldset>
+
+          <label class="timer-label" for="timer-seconds">
+            Time between elements
+            <span class="hint">Seconds per color, number, or combined prompt</span>
+          </label>
+          <div class="timer-control">
+            <input id="timer-seconds" name="timerSeconds" type="number" min="1" max="60" step="1" value="3" required>
+            <span>seconds</span>
+          </div>
+
+          <button type="submit">Start session</button>
+        </form>
+
+        <output id="configuration-summary" class="configuration-summary"></output>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
