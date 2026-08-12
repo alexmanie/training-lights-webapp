@@ -149,3 +149,9 @@ input:focus-visible {
   background: rgba(92, 225, 230, 0.1);
   color: #e8fbfc;
 }
+
+.series-page {
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}

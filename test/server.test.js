@@ -47,6 +47,18 @@ test('serves frontend assets', async () => {
   assert.match(response.body, /trainingLightsConfiguration/);
 });
 
+test('serves the color series page and script', async () => {
+  const pageResponse = await fetchFromTestServer('/series.html');
+  const scriptResponse = await fetchFromTestServer('/series.js');
+
+  assert.equal(pageResponse.status, 200);
+  assert.equal(pageResponse.headers.get('content-type'), 'text/html; charset=utf-8');
+  assert.match(pageResponse.body, /id="series-display"/);
+  assert.equal(scriptResponse.status, 200);
+  assert.equal(scriptResponse.headers.get('content-type'), 'text/javascript; charset=utf-8');
+  assert.match(scriptResponse.body, /blue.+white.+orange.+yellow/);
+});
+
 test('supports HEAD requests for static files', async () => {
   const response = await fetchFromTestServer('/', { method: 'HEAD' });
 

@@ -32,6 +32,10 @@ form.addEventListener('submit', (event) => {
   const configuration = getConfiguration();
   localStorage.setItem('trainingLightsConfiguration', JSON.stringify(configuration));
   renderSummary(configuration, true);
+
+  if (configuration.seriesType === 'colors') {
+    window.location.assign('/series.html');
+  }
 });
 
 renderSummary(getConfiguration());
