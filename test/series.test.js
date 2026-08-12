@@ -48,15 +48,13 @@ test('rejects missing, unsupported, and invalid configurations', () => {
   }))), null);
 });
 
-test('shows a color immediately and schedules changes at the configured interval', () => {
+test('shows one second of black between colors', () => {
   const display = { style: {} };
-  let scheduledCallback;
-  let scheduledDelay;
+  const scheduledTasks = [];
   const randomValues = [0, 0.3];
   const schedule = (callback, delay) => {
-    scheduledCallback = callback;
-    scheduledDelay = delay;
-    return 42;
+    scheduledTasks.push({ callback, delay });
+    return scheduledTasks.length;
   };
 
   const timerId = startColorSeries(
@@ -67,9 +65,14 @@ test('shows a color immediately and schedules changes at the configured interval
   );
 
   assert.equal(display.style.backgroundColor, 'blue');
-  assert.equal(scheduledDelay, 3000);
-  assert.equal(timerId, 42);
+  assert.equal(scheduledTasks[0].delay, 3000);
+  assert.equal(timerId, 1);
 
-  scheduledCallback();
+  scheduledTasks.shift().callback();
+  assert.equal(display.style.backgroundColor, 'black');
+  assert.equal(scheduledTasks[0].delay, 1000);
+
+  scheduledTasks.shift().callback();
   assert.equal(display.style.backgroundColor, 'white');
+  assert.equal(scheduledTasks[0].delay, 3000);
 });

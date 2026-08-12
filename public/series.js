@@ -24,13 +24,18 @@ function loadColorConfiguration(storage) {
   }
 }
 
-function startColorSeries(configuration, display, schedule = setInterval, random = Math.random) {
+function startColorSeries(configuration, display, schedule = setTimeout, random = Math.random) {
   const showNextColor = () => {
     display.style.backgroundColor = getRandomColor(random);
+    return schedule(showTransition, configuration.timerSeconds * 1000);
   };
 
-  showNextColor();
-  return schedule(showNextColor, configuration.timerSeconds * 1000);
+  const showTransition = () => {
+    display.style.backgroundColor = 'black';
+    return schedule(showNextColor, 1000);
+  };
+
+  return showNextColor();
 }
 
 if (typeof window !== 'undefined') {
