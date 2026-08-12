@@ -34,7 +34,7 @@ function resolveStaticPath(requestUrl) {
 function createServer() {
   return http.createServer(async (request, response) => {
     if (request.method !== 'GET' && request.method !== 'HEAD') {
-      response.writeHead(405, { Allow: 'GET, HEAD' });
+      response.writeHead(405, { allow: 'GET, HEAD' });
       response.end('Method Not Allowed');
       return;
     }
