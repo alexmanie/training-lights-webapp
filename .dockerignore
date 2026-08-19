@@ -1,0 +1,10 @@
+.git
+.azure
+.test-results
+node_modules
+azd-ai-agents-*.log
+Dockerfile
+.dockerignore
+README.md
+next-steps.md
+test
