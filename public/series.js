@@ -1,4 +1,4 @@
-const COLORS = ['orange', 'white', 'red', 'yellow'];
+const COLORS = ['#ff954d', 'white', '#b71c1c', '#d9f000'];
 const CONFIGURATION_KEY = 'trainingLightsConfiguration';
 
 function getRandomColor(random = Math.random) {

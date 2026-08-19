@@ -64,7 +64,7 @@ test('serves the color series page and script', async () => {
   assert.match(pageResponse.body, /id="series-display"/);
   assert.equal(scriptResponse.status, 200);
   assert.equal(scriptResponse.headers.get('content-type'), 'text/javascript; charset=utf-8');
-  assert.match(scriptResponse.body, /blue.+white.+orange.+yellow/);
+  assert.match(scriptResponse.body, /#ff954d.+white.+#b71c1c.+#d9f000/);
 });
 
 test('supports HEAD requests for static files', async () => {

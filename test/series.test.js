@@ -82,13 +82,13 @@ test('shows one second of black between colors', () => {
   };
 
   const timerId = startColorSeries(
-    { timerSeconds: 3, endingType: 'iterations', endingValue: 2 },
+    { timerSeconds: 3, endingType: 'iterations', endingValue: 3 },
     display,
     schedule,
     () => randomValues.shift(),
   );
 
-  assert.equal(display.style.backgroundColor, 'blue');
+  assert.equal(display.style.backgroundColor, '#ff954d');
   assert.equal(scheduledTasks[0].delay, 3000);
   assert.equal(timerId, 1);
 
