@@ -33,6 +33,27 @@ function startColorSeries(configuration, display, schedule = setTimeout, random 
   let iterations = 0;
   let ended = false;
 
+  const beginSeries = () => {
+    if (configuration.endingType === 'timeCap') {
+      schedule(stopSeries, configuration.endingValue * 1000);
+    }
+
+    showNextColor();
+  };
+
+  const showCountdown = (secondsRemaining) => {
+    display.style.backgroundColor = 'black';
+    display.classList?.add('series-countdown');
+    display.textContent = secondsRemaining > 0 ? String(secondsRemaining) : '';
+
+    if (secondsRemaining === 0) {
+      beginSeries();
+      return undefined;
+    }
+
+    return schedule(() => showCountdown(secondsRemaining - 1), 1000);
+  };
+
   const showEnd = () => {
     ended = true;
     display.style.backgroundColor = 'black';
@@ -105,11 +126,7 @@ function startColorSeries(configuration, display, schedule = setTimeout, random 
     return schedule(showNextColor, 1000);
   };
 
-  if (configuration.endingType === 'timeCap') {
-    schedule(stopSeries, configuration.endingValue * 1000);
-  }
-
-  return showNextColor();
+  return showCountdown(5);
 }
 
 if (typeof window !== 'undefined') {

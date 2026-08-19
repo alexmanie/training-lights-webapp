@@ -177,6 +177,13 @@ input:focus-visible {
   overflow: hidden;
 }
 
+.series-countdown {
+  color: white;
+  font-size: clamp(8rem, 35vw, 24rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
 .series-end {
   color: #f7f8ff;
   font-size: clamp(4rem, 18vw, 12rem);
