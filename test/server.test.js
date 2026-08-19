@@ -37,14 +37,22 @@ test('serves the configuration page at the root route', async () => {
   assert.match(response.body, /Configure your training series/);
   assert.match(response.body, /Colors and numbers/);
   assert.match(response.body, /Time between elements/);
+  assert.match(response.body, /Time cap/);
+  assert.match(response.body, /Number of iterations/);
+  assert.match(response.body, /value="60"/);
+  assert.match(response.body, /value="10"/);
 });
 
 test('serves frontend assets', async () => {
   const response = await fetchFromTestServer('/app.js');
+  const seriesScriptResponse = await fetchFromTestServer('/series.js');
 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
   assert.match(response.body, /trainingLightsConfiguration/);
+  assert.equal(seriesScriptResponse.status, 200);
+  assert.match(seriesScriptResponse.body, /Repeat series/);
+  assert.match(seriesScriptResponse.body, /Return to configuration/);
 });
 
 test('serves the color series page and script', async () => {

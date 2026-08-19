@@ -42,6 +42,30 @@
             <span>seconds</span>
           </div>
 
+          <fieldset>
+            <legend>How should the series end?</legend>
+            <div class="ending-option">
+              <label>
+                <input type="radio" name="endingType" value="timeCap" checked>
+                <span>Time cap</span>
+              </label>
+              <div class="ending-control">
+                <input id="time-cap-seconds" name="timeCapSeconds" type="number" min="1" max="3600" step="1" value="60" required>
+                <span>seconds</span>
+              </div>
+            </div>
+            <div class="ending-option">
+              <label>
+                <input type="radio" name="endingType" value="iterations">
+                <span>Number of iterations</span>
+              </label>
+              <div class="ending-control">
+                <input id="iteration-count" name="iterationCount" type="number" min="1" max="10000" step="1" value="10" required disabled>
+                <span>iterations</span>
+              </div>
+            </div>
+          </fieldset>
+
           <button type="submit">Start session</button>
         </form>
 
