@@ -136,7 +136,7 @@ test('shows one second of black between colors', () => {
   assert.equal(scheduledTasks[0].delay, 3000);
 });
 
-test('stops after the configured number of iterations', () => {
+test('shows the final iteration before ending the series', () => {
   const display = { style: {} };
   const scheduledTasks = [];
   const schedule = (callback, delay) => {
@@ -155,6 +155,11 @@ test('stops after the configured number of iterations', () => {
     scheduledTasks.shift().callback();
   }
 
+  assert.equal(display.style.backgroundColor, '#2014FF');
+  assert.equal(display.textContent, '');
+  assert.equal(scheduledTasks[0].delay, 3000);
+
+  scheduledTasks.shift().callback();
   assert.equal(display.textContent, 'END');
   assert.equal(display.style.backgroundColor, 'black');
   assert.deepEqual(scheduledTasks, []);
