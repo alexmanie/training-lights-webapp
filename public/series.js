@@ -110,7 +110,7 @@ function startColorSeries(configuration, display, schedule = setTimeout, random 
     iterations += 1;
 
     if (configuration.endingType === 'iterations' && iterations >= configuration.endingValue) {
-      return schedule(stopSeries, configuration.timerSeconds * 1000);
+      return schedule(showEnd, configuration.timerSeconds * 1000);
     }
 
     return schedule(showTransition, configuration.timerSeconds * 1000);
