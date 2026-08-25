@@ -99,7 +99,7 @@ test('shows a five second countdown before the first color', () => {
   }
 
   scheduledTasks.shift().callback();
-  assert.equal(display.style.backgroundColor, '#ff954d');
+  assert.equal(display.style.backgroundColor, '#2014FF');
   assert.equal(scheduledTasks[0].delay, 3000);
   assert.equal(display.textContent, '');
 });
@@ -124,7 +124,7 @@ test('shows one second of black between colors', () => {
     scheduledTasks.shift().callback();
   }
 
-  assert.equal(display.style.backgroundColor, '#ff954d');
+  assert.equal(display.style.backgroundColor, '#2014FF');
   assert.equal(scheduledTasks[0].delay, 3000);
 
   scheduledTasks.shift().callback();
